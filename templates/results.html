@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results - Sky Seer</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="page-wrapper">
+        <header class="page-header">
+            <div class="logo">Sky Seer</div>
+            <nav class="main-nav">
+            </nav>
+        </header>
+
+        <main>
+            <div class="container container-full">
+                <div class="results-header">
+                    <h2>Analysis for the date {{ date.split('-')[1] }}/{{ date.split('-')[2] }}</h2>
+                    <p style="color: var(--secondary-text-color);">Location: {{ location }}</p>
+                </div>
+
+                <div class="results-grid">
+                    {% for key, data in results.items() %}
+                    <div class="result-card">
+                        <h3>{{ data.title }}</h3>
+
+                        {% if data.error %}
+                            <p class="error-message">{{ data.summary_value }}</p>
+                            <p style="font-size: 0.9rem; color: #6c757d;">{{ data.error }}</p>
+                        {% else %}
+                            <p class="summary-value">{{ data.summary_value }}</p>
+                        {% endif %}
+
+                        {% if not data.error and data.history and data.history|length > 0 %}
+                            <button class="btn btn-small toggle-history-btn" 
+                                    data-title="{{ data.title }}"
+                                    data-headers='{{ data.history_headers | tojson }}'
+                                    data-history='{{ data.history | tojson }}'>
+                                View History
+                            </button>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <div style="margin-top: 2.5rem;">
+                    <a href="{{ url_for('map_page') }}" class="btn">Make a New Query</a>
+                </div>
+            </div>
+        </main>
+        
+        <footer class="page-footer">
+            <div class="footer-left">
+               <div class="logo">Sky Seer</div>
+               <span>Created by Maranautas</span>
+           </div>
+           <div class="footer-right">
+           </div>
+       </footer>
+    </div>
+
+    <div class="modal-overlay" id="history-modal-overlay">
+        <div class="modal-content">
+            <button class="modal-close-btn" id="modal-close-btn">&times;</button>
+            <h2 id="modal-title">History</h2>
+            <table class="results-table">
+                <thead id="modal-table-head"></thead>
+                <tbody id="modal-table-body"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/results.js') }}"></script>
+</body>
+</html>

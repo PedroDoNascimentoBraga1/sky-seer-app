@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Selection - Sky Seer</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="page-wrapper">
+        <header class="page-header">
+            <div class="logo">Sky Seer</div>
+            <nav class="main-nav">
+            </nav>
+        </header>
+
+        <main>
+            <div class="container container-full">
+                <div class="header">
+                    <h1>What data do you want to analyze?</h1>
+                    <p>Select the variables for your historical query.</p>
+                </div>
+
+                <form id="data-form" action="{{ url_for('process_data') }}" method="POST">
+                    <div class="data-selection-grid">
+                        <label class="checkbox-group">
+                            <input type="checkbox" name="data" value="prob_chuva"> Rain Probability
+                        </label>
+                        <label class="checkbox-group">
+                            <input type="checkbox" name="data" value="temp_media"> Average Temperature
+                        </label>
+                        <label class="checkbox-group">
+                            <input type="checkbox" name="data" value="sensacao_termica"> High Feels-Like Temperature
+                        </label>
+                        <label class="checkbox-group">
+                            <input type="checkbox" name="data" value="vel_vento"> Wind Speed
+                        </label>
+                        <label class="checkbox-group">
+                            <input type="checkbox" name="data" value="nuvens"> Cloud Cover
+                        </label>
+                        <label class="checkbox-group">
+                            <input type="checkbox" name="data" value="humidade"> Humidity
+                        </label>
+                        <label class="checkbox-group">
+                            <input type="checkbox" name="data" value="neve"> Snowfall
+                        </label>
+                    </div>
+                    
+                    <button type="submit" class="btn">Analyze Historical Data</button>
+                </form>
+            </div>
+        </main>
+
+        <footer class="page-footer">
+             <div class="footer-left">
+                <div class="logo">Sky Seer</div>
+                <span>Created by Maranautas</span>
+            </div>
+            <div class="footer-right">
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

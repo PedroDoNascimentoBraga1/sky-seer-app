@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleção de Local - Sky Seer</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css"/>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="page-wrapper">
+        <header class="page-header">
+            <div class="logo">Sky Seer</div>
+        </header>
+
+        <main>
+            <div class="container container-full">
+                <div class="header">
+                    <h1>Select location and date</h1>
+                    <p>Select the tool in the left corner to add a point or draw a rectangle on the map</p>
+                </div>
+
+                <div id="map"></div>
+
+                <form action="{{ url_for('save_location') }}" method="POST" class="map-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="event-date">Event Date</label>
+                            <input type="date" id="event-date" name="event-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="coordinates">Selected Coordinates</label>
+                            <input type="text" id="coordinates" name="coordinates" readonly placeholder="Select on the map" required>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn">Proceed to Data Selection</button>
+                </form>
+            </div>
+        </main>
+
+        <footer class="page-footer">
+            <div class="footer-left">
+                <div class="logo">Sky Seer</div>
+                <span>Created by Maranautas</span>
+            </div>
+            <div class="footer-right">
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+    
+    <script src="{{ url_for('static', filename='js/map.js') }}"></script>
+</body>
+</html>
